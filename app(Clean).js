@@ -1,41 +1,66 @@
 // const mongoose = require('mongoose');
 
 // mongoose
-//   .connect('mongodb://localhost/exampleApp', {useNewUrlParser: true})
-//   .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
-//   .catch(err => console.error('Error connecting to mongo', err));
-  
-  
-// const Cat = mongoose.model('Cat', { name: String });
+//     .connect('mongodb://localhost/CatDatabase', { useNewUrlParser: true })
+//     .then(x => console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`))
+//     .catch(err => console.error('Error connecting to mongo', err));
 
-// function addNewCat(catName) {
-//   const kitty = new Cat({ name: catName });
-  
-//   kitty
-//     .save()
-//     .then(newCat => console.log(`A new cat is created: ${newCat}!`))
-//     .catch(err => console.log(`Error while creating a new cat: ${err}`));
+// // simple schema 
+// // const Cat = mongoose.model('Cat', { name: String });
+
+// // define a schema
+// const Schema = mongoose.Schema;
+
+// // make instance of the schema with rules for our cat
+// const catSchema = new Schema({
+//     name: String,
+//     color: String,
+//     age: Number
+// });
+
+// const addNewCat = (catName) => {
+
+//     const kitten = new Cat({ name: catName });
+
+//     kitten
+//         .save()
+//         .then(newCat => console.log(`New cat ${catName} saved.`))
+//         .catch(err => console.log(`Error while trying to save new Cat ${err}`))
+
 // }
 
-// function showCats() {
-//   console.log('All the CATS!');
-//   Cat
-//     .find()
-//     .then(catsFromDB => {
-//         // catsFromDB is an array of Cat instances
-//       catsFromDB.forEach(oneCat => console.log(` --> cat: ${oneCat.name}`));
-//     })
-//     .catch(err => console.log(`Error occurred during getting cats from DB: ${err}`);)
+// const listTheCats = () => {
+
+//     Cat
+//         .find()
+//         .then(catsFromDb => {
+
+//             catsFromDb.forEach(currentCat => {
+//                 console.log(`--> Cat: ${currentCat.name}`);
+//             });
+//         })
+//         .catch(err => {
+//             console.log(`Error returning Cat.find : ${err}`)
+//         }
+//         )
+
 // }
 
-// function addTenCats(){
-//   for (let i=0; i<10; i++){
-//     addNewCat(`Ironhacker ${i}`);
-//   }
+// const addTenCats = () => {
+
+//     for (let i = 0; i < 10; i++) {
+//         addNewCat(`Super Kitty Number ${i}`);
+//     }
+
 // }
 
-// addTenCats();
+// const deleteAllCatsNamedAlex = () => {
+//     Cat.deleteMany({ name: "Alex" });
+// }
 
-// /* We have to wait for our cats to save before displaying them
-//  Remember, it's async */
-// setTimeout(showCats, 1500);
+// const deleteCatWithThisName = (targetCatName) => {
+//     Cat.deleteMany({ name: "targetCatName" });
+// }
+
+// deleteAllCatsNamedAlex();
+

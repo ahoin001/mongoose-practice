@@ -10,7 +10,7 @@ mongoose
     .catch(err => console.error('Error connecting to mongo', err));
 
 // TODO: Understand Schemas better 
-// We are creating a model called Cat in first parameter, That creates objects with the blueprint passed in the second parameter is a (schema)
+// We are creating a model called Cat in first parameter, That creates documents with the blueprint passed in the second parameter is a (schema)
 const Cat = mongoose.model('Cat', { name: String });
 
 // function that will recive a name and create then add new cat instance too DB
@@ -48,19 +48,20 @@ const listTheCats = () => {
 const addTenCats = () => {
 
     for (let i = 0; i < 10; i++) {
-       addNewCat(`Super Kitty Number ${i}`);
+        addNewCat(`Super Kitty Number ${i}`);
     }
 
 }
 
 const deleteAllCatsNamedAlex = () => {
-  Cat.deleteMany({name : "Alex"});
+    Cat.deleteMany({ name: "Alex" });
 }
 
 const deleteCatWithThisName = (targetCatName) => {
-    Cat.deleteMany({name : "targetCatName"});
-  }
+    Cat.deleteMany({ name: "targetCatName" });
+}
 
-listTheCats();
-// deleteAllCatsNamedAlex();
+// listTheCats();
+//deleteAllCatsNamedAlex();
+// addTenCats();
 
