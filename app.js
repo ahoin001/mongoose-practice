@@ -24,7 +24,7 @@ const addNewCat = (catName) => {
     kitten
         .save()
         .then(newCat => console.log(`New cat ${catName} saved.`))
-        .catch(err => console.log(`Error while trying to save new Cat`))
+        .catch(err => console.log(`Error while trying to save new Cat ${err}`))
 
 }
 
@@ -44,4 +44,23 @@ const listTheCats = () => {
         )
 
 }
+
+const addTenCats = () => {
+
+    for (let i = 0; i < 10; i++) {
+       addNewCat(`Super Kitty Number ${i}`);
+    }
+
+}
+
+const deleteAllCatsNamedAlex = () => {
+  Cat.deleteMany({name : "Alex"});
+}
+
+const deleteCatWithThisName = (targetCatName) => {
+    Cat.deleteMany({name : "targetCatName"});
+  }
+
+listTheCats();
+// deleteAllCatsNamedAlex();
 
