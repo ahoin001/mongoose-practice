@@ -17,17 +17,17 @@ const addNewCat = (catName) => {
 
     // Add new document using schema we created in model
     theCatModel.create({ name: catName, color: "black", age: 5 })
-        .then(cat => console.log(`Added ${cat} to the database`))
+        .then(cat => console.log(`Added ${cat.name} to the database`))
         .catch(err => { console.log(`Error when adding cat`) });
 
 }
 
 const listTheCats = () => {
-
+console.log(`About to list cats`)
     // Promise version
     theCatModel.find({})
         .then((cats) => {
-            console.log(`Cat List Returned`,cats);
+            console.log(`Cat List Returned`, cats);
         })
         .catch((err) => {
             console.log(`Error returning list`);
@@ -40,6 +40,18 @@ const addTenCats = () => {
 
     for (let i = 0; i < 10; i++) {
         addNewCat(`Super Kitty Number ${i}`);
+    }
+
+}
+
+const deleteSuperKittys = () => {
+
+    // loop through to delete super kittys 0-9
+    for (let i = 1; i < 2; i++) {
+        // delete first super kitty in collection found with numbers 0-9 
+        //console.log(theCatModel.find({ name: `Super Kitty Number ${i.name}`  }))
+        theCatModel.deleteOne({ name: `Super Kitty Number ${i}` });
+
     }
 
 }
@@ -58,6 +70,7 @@ const deleteCatWithThisName = (targetCatName) => {
 
 // listTheCats();
 // addTenCats();
+deleteSuperKittys();
 //listTheCats();
 //addNewCat("Alex");
-deleteAllCatsNamedAlex();
+//deleteAllCatsNamedAlex();
