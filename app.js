@@ -13,31 +13,35 @@ mongoose
 // We are creating a model called Cat in first parameter, That creates objects with the blueprint passed in the second parameter is a (schema)
 const Cat = mongoose.model('Cat', { name: String });
 
-// create a new instance of cat that we will later add to database
-const kitten = new Cat({ name: "Alex" });
+// function that will recive a name and create then add new cat instance too DB
+const addNewCat = (catName) => {
 
-// since kitty is based off of Mongoose Model "Cat", it has acccess to mongoose model methods
-// Save() sends object to our mongoDB using insertOne command behind the scenes
+    // create a new instance of cat that we will later add to database
+    const kitten = new Cat({ name: catName });
 
-kitten.save()
-    // TODO Is this a promise? Or is then just another built in method?
-    .then(newCat => console.log(`We saved a new cat to the database named: ${newCat}!`))
-    .catch(err => console.log(`Error while creating new cat ${err}`))
+    // since kitty is based off of Mongoose Model "Cat", it has acccess to mongoose model methods
+    // Save() sends object to our mongoDB using insertOne command behind the scenes
+    kitten
+        .save()
+        .then(newCat => console.log(`New cat ${catName} saved.`))
+        .catch(err => console.log(`Error while trying to save new Cat`))
 
+}
 
-// Since its mongo we can use Mongo Query commanads on the database
-Cat.find({}, (err, cats) => {
-    if (err) {
-        console.log(`Error occired when running Cat.find , error: ${err}`);
-        // exit the function after error
-        return;
-    }
+const listTheCats = () => {
 
-    console.log(`All Cats Reporting for Duty!`);
+    Cat
+        .find()
+        .then(catsFromDb => {
+            // with returned array of cats, we can loop through to print them
+            catsFromDb.forEach(currentCat => {
+                console.log(`--> Cat: ${currentCat.name}`);
+            });
+        })
+        .catch(err => {
+            console.log(`Error returning Cat.find : ${err}`)
+        }
+        )
 
-    // TODO are all databases treated as arrays? Or is it find returning an array
-    // cats is an array of Cat instances
-    cats.forEach(cat => console.log(` --> cat: ${cat.name}`));
+}
 
-
-})
